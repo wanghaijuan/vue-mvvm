@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue-mvvm</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 插值绑定 -->
+    <p>{{word}}</p>
+    <p>{{test}}</p>
+    <div v-text="hello"></div>
+    {{text}}
+
+    <!-- html内容解析 -->
+    <div v-html="html"></div>
+
+    <!-- 双向绑定 -->
+    <input type="text" id="a" v-model="text">
+
+    <!-- 事件处理 -->
+    <button @click="onChangeText">点击事件测试</button>
+
+  </div>
+</body>
+<script src="js/batcher.js"></script>
+<script src="js/dep.js"></script>
+<script src="js/observe.js"></script>
+<script src="js/watcher.js"></script>
+<script src="js/compile.js"></script>
+<script src="js/index.js"></script>
+<script>
+  window.batcher = "";
+  var vm = new Vue({
+    el: 'app',
+    data: {
+      word: 'Hello World！',
+      hello: '你好',
+      test: '测试',
+      text: '文本',
+      html: '<button>按钮</button>'
+    },
+    created() {
+      setTimeout(() => {
+        this.word = '自动修改';
+        this.hello = '自动你好';
+      }, 1500);
+    },
+    methods: {
+      onChangeText() {
+        console.log(this)
+        this.word = '修改成功';
+        this.test = '测试一下';
+        this.hello = "修改文本啦";
+        this.text = "修改文本啦";
+      }
+    }
+  });
+</script>
+
+</html>
